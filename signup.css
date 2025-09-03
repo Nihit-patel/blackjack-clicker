@@ -1,0 +1,66 @@
+/* The styling for the signup / login pages */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.register {
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.register p {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+.register input[type="text"],
+.register input[type="password"],
+button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.register input[type="text"]:hover,
+.register input[type="password"]:hover {
+  border-color: #667eea;
+  outline: none;
+}
+
+.register button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.register button:hover {
+  background: linear-gradient(135deg, #4d5ead 0%, #472d61 100%);
+}
+
+.register .form_account {
+  font-size: 12px;
+}
+
+.signup-form-error {
+  color: red;
+  font-size: 0.7em;
+}

@@ -1,0 +1,753 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  background: linear-gradient(135deg, #1b3a2e 0%, #0e6e34 100%);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.header {
+  background: rgba(4, 32, 22, 0.9);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(10px);
+  /* border-bottom: 2px solid rgba(255, 255, 255, 0.1); */
+}
+
+.header h1 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+  height: clamp(40px, 8vw, 80px);
+  width: auto;
+}
+
+.main-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  position: relative;
+}
+
+.table-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 1rem 0;
+}
+
+#blackjack_table {
+  width: 100%;
+  height: auto;
+  opacity: 0.8;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.chips-bet {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: clamp(8px, 2vw, 20px);
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.chips-bet img {
+  width: clamp(40px, 4vw, 100px);
+  height: auto;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+
+  user-select: "none";
+}
+
+.chips-bet.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.poker-chips {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: clamp(6px, 1.5vw, 15px);
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+
+  user-select: "none";
+}
+
+.poker-chips img {
+  width: clamp(40px, 4vw, 70px);
+  height: auto;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+  user-select: "none";
+}
+
+.poker-chips img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+.game-areas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  pointer-events: none;
+
+  z-index: 1;
+  max-width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-height: 100%;
+  width: auto;
+}
+
+.dealer-area {
+  position: absolute;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 50%;
+}
+
+.player-area {
+  right: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  max-width: 50%;
+}
+
+.dealer-area.active,
+.player-area.active {
+  pointer-events: auto;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+  margin: 1rem;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.area-title {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.hand {
+  display: flex;
+  gap: clamp(5px, 1.5vw, 15px);
+  margin: 1rem 0;
+  min-height: clamp(80px, 15vw, 120px);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hand img {
+  width: clamp(60px, 10vw, 90px);
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  background: #fff;
+  transition: transform 0.3s ease;
+}
+
+.hand img:hover {
+  transform: translateY(-5px);
+}
+
+.score {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  margin-top: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  color: #ffe066;
+}
+
+/* Blur effect for table container */
+.table-container.blurred {
+  filter: blur(2px);
+  transition: filter 6s ease;
+}
+
+.table-container.blurred::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Ensure message result stays on top */
+.message-result {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(1.5rem, 6vw, 3.5rem);
+  font-weight: 700;
+  text-align: center;
+  color: #ffe066;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  max-width: 90vw;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.controls {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: clamp(10px, 3vw, 20px);
+  flex-wrap: wrap;
+  justify-content: center;
+  z-index: 100;
+}
+
+.btn {
+  padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 32px);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.btn-hit {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: #fff;
+}
+
+.btn-stand {
+  background: linear-gradient(135deg, #ffc107, #fd7e14);
+  color: #fff;
+}
+
+.btn-new,
+.btn-play {
+  background: linear-gradient(135deg, #007bff, #6f42c1);
+  color: #fff;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-hit:hover {
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+.btn-stand:hover {
+  box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+}
+
+.btn-new:hover,
+.btn-play:hover {
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+.balance-bet {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1rem;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  z-index: 100;
+}
+
+.balance-bet p {
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  font-weight: 600;
+  margin: 0.5rem 0;
+  color: #ffffff;
+}
+
+.disclaimer {
+  position: absolute;
+  bottom: -5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+  text-align: center;
+  opacity: 0.7;
+  max-width: 90vw;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.win,
+.lose,
+.push {
+  border-radius: 15px;
+}
+
+.win {
+  background: rgba(40, 167, 69, 0.8) !important;
+  border-color: #28a745 !important;
+  color: rgb(166, 244, 184);
+}
+
+.lose {
+  background: rgba(220, 53, 69, 0.8) !important;
+  border-color: #dc3545 !important;
+  color: #ffb3b3 !important;
+}
+
+.push {
+  background: rgba(122, 122, 122, 0.8) !important;
+  border-color: rgba(122, 122, 122, 0.8) !important;
+  color: #ffffff !important;
+}
+
+.error,
+.warning {
+  position: absolute;
+  top: 50%;
+  padding: 20px;
+  color: white;
+  font-size: 16pt;
+  font-weight: 900;
+  width: 100%;
+  z-index: 1010;
+  border-radius: 10px;
+  text-align: center;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.error {
+  background-color: #f44336;
+  /* Red */
+}
+
+.warning {
+  background-color: #fd7e14;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: auto;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+}
+
+/* .booleanAnswer{
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: auto;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.booleanAnswer:hover{
+  color:rgb(220, 219, 219);
+  background-color: #dc3545;
+} */
+
+/* MONEY CLICKER PAGE */
+.main-game {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  min-height: calc(100vh - 100px);
+  /* Account for navigation space */
+}
+
+#moneyclickerBtn {
+  width: 300px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+#moneyclickerBtn:hover {
+  transform: scale(1.05);
+}
+
+#moneyclickerBtn:active {
+  transform: scale(0.95);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  #moneyclickerBtn {
+    width: 250px;
+  }
+
+  .balance-bet {
+    position: static;
+    margin: 10px;
+    text-align: center;
+  }
+
+  .main-game {
+    min-height: calc(100vh - 150px);
+  }
+}
+
+/* sidebar */
+.navigation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1100;
+}
+
+/* The sidebar menu */
+.sidebar {
+  height: 100%;
+  /* 100% Full-height */
+  width: 0;
+  /* 0 width - change this with JavaScript */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Stay on top */
+  left: 0;
+  top: 0;
+  background-color: #111;
+  /* Black*/
+  overflow-x: hidden;
+  /* Disable horizontal scroll */
+  padding-top: 60px;
+  /* Place content 60px from the top */
+  transition: 0.5s;
+  /* 0.5 second transition effect to slide in the sidebar */
+}
+
+/* The sidebar links */
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidebar .closeSidebar {
+  position: relative;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* The button used to open the sidebar */
+.openSidebar {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openSidebar:hover {
+  background-color: #444;
+}
+
+/* Shift main content when sidebar is open */
+#main {
+  transition: margin-left 0.3s;
+  margin-left: 0;
+}
+
+#main.shifted {
+  margin-left: 250px;
+  /* Same as sidebar width */
+}
+
+/* Mobile-first responsive adjustments */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .poker-chips {
+    bottom: 15%;
+    gap: 8px;
+  }
+
+  .poker-chips img {
+    width: 35px;
+  }
+
+  .game-areas {
+    padding: 1rem;
+  }
+
+  .balance-bet {
+    position: static;
+    transform: none;
+    margin: 1rem;
+    width: calc(100% - 2rem);
+    text-align: center;
+  }
+
+  .controls {
+    bottom: 1rem;
+    padding: 0 1rem;
+    width: calc(100% - 2rem);
+  }
+
+  .btn {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .poker-chips {
+    gap: 4px;
+    padding: 0.3rem;
+    border-radius: 8px;
+  }
+
+  .poker-chips img {
+    width: 28px;
+  }
+
+  .hand img {
+    width: 50px;
+  }
+
+  .controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .sidebar {
+    padding-top: 15px;
+  }
+
+  .sidebar a {
+    font-size: 18px;
+  }
+}
+
+/* Landscape orientation on mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .balance-bet {
+    position: fixed;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    transform: none;
+    padding: 0.5rem;
+    border-radius: 12px;
+    font-size: 0.55em;
+  }
+
+  .header {
+    padding: 0.5rem 1rem;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .logo {
+    height: 40px;
+  }
+
+  .main-container {
+    padding: 0.5rem;
+  }
+
+  .game-areas {
+    padding: 1rem;
+  }
+
+  .controls {
+    bottom: 0.5rem;
+  }
+
+  .disclaimer {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .poker-chips img {
+    width: 60px;
+    /* Fixed size for large monitors */
+  }
+}
+
+/* Money Clicker MORE */
+@keyframes itemFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes itemDisappear {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+}
+
+@keyframes rareNotification {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0px);
+  }
+
+  80% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+}
+
+@keyframes sparkle {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2) rotate(180deg);
+  }
+}
+
+.spawned-item:hover {
+  filter: brightness(1.2);
+}
+
+.main-game {
+  position: relative !important;
+}
