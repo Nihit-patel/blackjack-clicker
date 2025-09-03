@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/signup.css" />
+  </head>
+
+  <body>
+    <div class="register">
+      <p>Login</p>
+      <form action="/login" method="post" id="signup-form-login">
+        <input
+          type="text"
+          id="usernameEmail"
+          name="usernameEmail"
+          required
+          placeholder="Username or Email"
+        />
+        <br />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          placeholder="Password"
+        />
+        <br id="br1" />
+        <button type="submit">Login</button>
+      </form>
+      <p class="form_account">
+        Don't have an account? <a href="/signup">Sign up</a>
+      </p>
+    </div>
+    <!-- <script src="/signup.js"></script> -->
+    <script src="/script.js"></script>
+  </body>
+</html>
