@@ -31,6 +31,9 @@ This is an interactive online blackjack game that combined with a fun cookie-cli
 - More games, Player vs Player (Multiplayer) modes.
 - Progression system to keep players engaged.
 - Better UI for mobile and desktop using React.
+- Bug fixes:
+  - User has access to spawn rate and values of items in MoneyClicker.js, so move to server side.
+  - User is able to click a single item multiple times.
 
 ## Setup:
 
